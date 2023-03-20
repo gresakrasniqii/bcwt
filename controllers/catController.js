@@ -10,16 +10,15 @@ const getCatList = (req, res) => {
 const getCat = (req, res) => {
     //console.log(req.params);
     const id = req.params.catId;
-    //todo filter matching cat based on id
-    //todo response 404 of od not found in array (res.status(404))
-    const cat = cats [id-1];
-    if (catModel.length) {
-        res.json(catModel);
-      } else {
-        res.status(404).send("no data");
-      }
-    res.json();
-};
+    
+    const filteredCats = cats.filter(cat => id == cat.id);
+
+    if (filteredCats.length > 0) {
+        res.json(filteredCats[0]);
+    } else {
+        res.status(404).send("No cat found");
+    }
+ };
 
 const postCat = (req, res) => {
     res.send('With this endpoint you can add cats.');
@@ -33,5 +32,5 @@ const deleteCat = (req, res) => {
     res.send('From this endpoint you can delete a cat.');
 };
 
-const catController = (getCatList, getCat, postCat, putCat, deleteCat);
+const catController = {getCatList, getCat, postCat, putCat, deleteCat};
 module.exports = catController;
