@@ -1,4 +1,5 @@
 'use strict';
+
 const catModel = require('../models/catModel');
 
 const cats = catModel.cats;
@@ -21,8 +22,10 @@ const getCat = (req, res) => {
  };
 
 const postCat = (req, res) => {
+    console.log('posting a cat', req.body, req.file);
+    //todo
     res.send('With this endpoint you can add cats.');
-    
+
 };
 
 const putCat = (req, res) => {
