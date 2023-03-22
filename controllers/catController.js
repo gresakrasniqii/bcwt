@@ -21,12 +21,15 @@ const getCat = (req, res) => {
     }
  };
 
-const postCat = (req, res) => {
+ const postCat = (req, res) => {
     console.log('posting a cat', req.body, req.file);
-    //todo
-    res.send('With this endpoint you can add cats.');
-
-};
+    // add cat details to cats array
+    const newCat = req.body;
+    newCat.filename = 'http://localhost:3000/uploads/' + req.file.filename;
+    cats.push(newCat);
+    // send correct response if upload successful
+    res.status(201).send('new cat added!');
+  };
 
 const putCat = (req, res) => {
     res.send('From this endpoint you can modify cats.');

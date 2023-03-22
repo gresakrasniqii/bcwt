@@ -11,16 +11,18 @@ const getUserList = (req, res) => {
 };
 
 const getUser = (req, res) => {
+    //console.log(req.params);
     const id = req.params.userId;
-    
+    // filter matching user(s) based on id
     const filteredUsers = users.filter(user => id == user.id);
-
     if (filteredUsers.length > 0) {
-        res.json(filteredUsers[0]);
+      res.json(filteredUsers[0]);
     } else {
-        res.status(404).send("No user found");
+      // send response 404 if id not found in array 
+      // res.sendStatus(404);
+      res.status(404).json({message: 'User not found.'})
     }
- };
+  };
 
 const postUser = (req, res) => {
     console.log(req.body);
