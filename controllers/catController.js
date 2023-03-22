@@ -2,29 +2,40 @@
 
 const catModel = require('../models/catModel');
 
-const cats = catModel.cats;
 
-const getCatList = (req, res) => {
-    res.json(cats);
+const getCatList = async (req, res) => {
+    try {
+        const cats = await catModel.getAllCats();
+        //console.log(cats);
+        res.json(cats);
+    } catch (error) {
+        res.status(500).json({error: 500, message: error.message});
+    }
 };
 
-const getCat = (req, res) => {
+const getCat = async (req, res) => {
     //console.log(req.params);
-    const id = req.params.catId;
-    
-    const filteredCats = cats.filter(cat => id == cat.id);
+    const catId = Number(req.params.catId);
+    if (!Number.isInteger(catId)){
+        res.status(400).json({error: 500, message:'invalid id'});
+        return;
+    }
+    const [cat] = await catModel.getCatById(catId);
+    console.log('get Cat', cat)
 
-    if (filteredCats.length > 0) {
-        res.json(filteredCats[0]);
+    if (cat) {
+        res.json(cat[0]);
     } else {
         res.status(404).send("No cat found");
     }
  };
 
-const postCat = (req, res) => {
+const postCat = async (req, res) => {
     console.log('posting a cat', req.body, req.file);
-    //todo
-    res.send('With this endpoint you can add cats.');
+    const newCat = req.body;
+    newCat.filename = req.file.filename;
+    const result = await catModel.insertCat(newCat);
+    res.tatus(201).send('new cat added');
 
 };
 
