@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "bcwt",
+			"path": "."
+		},
+		{
+			"name": "views",
+			"path": "..\\..\\Pictures\\Screenshots\\views"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "bcwt",
+		"liveServer.settings.port": 5501
+	}
+}
